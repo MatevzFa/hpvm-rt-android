@@ -17,7 +17,7 @@ CC  = $(ANDROID_NDK)/toolchains/llvm/prebuilt/linux-x86_64/bin/clang
 # Flags
 # 
 INCLUDES = -I./include -I$(HPVM_ROOT)/hpvm/include
-DEFINES  = -DNUM_CORES=$(NUM_CORES)
+DEFINES  = 
 
 # O1 is required, otherwise GenHPVM fails (invalid arguments to __hpvm__attributes)
 ANDROID_CFLAGS = \

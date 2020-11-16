@@ -1444,23 +1444,23 @@ void *llvm_hpvm_ocl_initContext(enum hpvm::Target T) {
   errcode |= clGetContextInfo(globalOCLContext, CL_CONTEXT_DEVICES, dataBytes,
                               clDevices, NULL);
   checkErr(errcode, CL_SUCCESS, "Failure to get context info");
-  if (false && T == hpvm::SPIR_TARGET) {
-    cl_device_partition_property props[4];
-    props[0] = CL_DEVICE_PARTITION_BY_COUNTS;
-    props[1] = NUM_CORES;
-    props[2] = CL_DEVICE_PARTITION_BY_COUNTS_LIST_END;
-    props[3] = 0;
-    cl_device_id subdevice_id[8];
-    cl_uint num_entries = 8;
+  // if (false && T == hpvm::SPIR_TARGET) {
+  //   cl_device_partition_property props[4];
+  //   props[0] = CL_DEVICE_PARTITION_BY_COUNTS;
+  //   props[1] = NUM_CORES;
+  //   props[2] = CL_DEVICE_PARTITION_BY_COUNTS_LIST_END;
+  //   props[3] = 0;
+  //   cl_device_id subdevice_id[8];
+  //   cl_uint num_entries = 8;
 
-    cl_uint numDevices;
-    clCreateSubDevices(clDevices[0], props, num_entries, subdevice_id,
-                       &numDevices);
-    clDevices[0] = subdevice_id[0];
-    globalOCLContext =
-        clCreateContext(properties, 1, clDevices, NULL, NULL, &errcode);
-    checkErr(errcode, CL_SUCCESS, "Failure to create OCL context");
-  }
+  //   cl_uint numDevices;
+  //   clCreateSubDevices(clDevices[0], props, num_entries, subdevice_id,
+  //                      &numDevices);
+  //   clDevices[0] = subdevice_id[0];
+  //   globalOCLContext =
+  //       clCreateContext(properties, 1, clDevices, NULL, NULL, &errcode);
+  //   checkErr(errcode, CL_SUCCESS, "Failure to create OCL context");
+  // }
 
   free(platforms);
   DEBUG(cout << "\tContext " << globalOCLContext << flush << "\n");
