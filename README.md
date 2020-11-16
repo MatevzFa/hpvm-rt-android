@@ -1,4 +1,4 @@
-# Compiling HVPM for Android
+# Compiling HPVM for Android
 
 ## Requirements
 
