@@ -2,10 +2,10 @@
 
 ## Requirements
 
-* [Android NDK](https://developer.android.com/ndk/guides)
-* HPVM Compiler: https://gitlab.engr.illinois.edu/llvm/hpvm-release
-* Accompanying Android application: https://github.com/MatevzFa/hpvm-rt-android-app
 * Properly set up environment
+* Patched HPVM Compiler: https://gitlab.engr.illinois.edu/llvm/hpvm-release
+* [Android NDK](https://developer.android.com/ndk/guides)
+* Accompanying Android application: https://github.com/MatevzFa/hpvm-rt-android-app
 
 
 ## Setting up the environment
@@ -18,6 +18,15 @@ Set up the following environment variables. You can use `set-env.example.sh` as 
 * `TARGET`: Android NDK Target. Passed to clang -target (e.g. "aarch64-linux-android21")
 * `LIB_INSTALL_PATH`: points to .../app/src/main/cpp/libs
 * `INCLUDE_INSTALL_PATH`: points to .../app/src/main/cpp/include
+
+
+## Patching the HPVM Compiler
+
+After the environment is set up, run the following command to patch HPVM's GenHPVM pass.
+
+```
+./patch-hpvm.sh
+```
 
 
 ## Building
