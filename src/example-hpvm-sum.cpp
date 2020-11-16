@@ -16,6 +16,7 @@
 
 #define ARRAY_SIZE 10
 
+#include "example-hpvm-sum.h"
 
 void sum_f(int *input, size_t bytes_input, int *sum, size_t bytes_sum) {
     __hpvm__hint(hpvm::CPU_TARGET);
@@ -58,7 +59,6 @@ typedef struct __attribute__((__packed__)) {
     size_t bytes_sum;
 } RootIn;
 
-__attribute__((used))
 int hpvm_example_sum() {
 
     // Alloc arguments
