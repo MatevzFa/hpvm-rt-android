@@ -2,21 +2,19 @@
 // Created by matevz on 13.11.2020.
 //
 
+#include "example-hpvm-sum.h"
+
+#include <cstdlib>
 #include <iostream>
-
-#include <stdlib.h>
-
-#define TAG "MyHPVMExample"
-#define LOGI(...)                                                              \
-   ((void)__android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__))
 
 #include "hpvm.h"
 
+#define TAG "MyHPVMExample"
+#define LOGI(...)                                                              \
+    ((void)__android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__))
+
 #define NON_STREAMING 0
-
-#define ARRAY_SIZE 10
-
-#include "example-hpvm-sum.h"
+#define ARRAY_SIZE    10
 
 void sum_f(int *input, size_t bytes_input, int *sum, size_t bytes_sum) {
     __hpvm__hint(hpvm::CPU_TARGET);
@@ -60,12 +58,11 @@ typedef struct __attribute__((__packed__)) {
 } RootIn;
 
 int hpvm_example_sum() {
-
     // Alloc arguments
     RootIn root_in = RootIn{};
 
     root_in.bytes_input = ARRAY_SIZE * sizeof(int);
-    root_in.input = (int *)malloc(root_in.bytes_input*sizeof(int));
+    root_in.input = (int *)malloc(root_in.bytes_input * sizeof(int));
 
     root_in.bytes_sum = 1 * sizeof(int);
     root_in.sum = (int *)malloc(root_in.bytes_sum);
@@ -83,8 +80,8 @@ int hpvm_example_sum() {
     __hpvm__init();
 
     // Track memory
-    llvm_hpvm_track_mem((void*)root_in.input, root_in.bytes_input);
-    llvm_hpvm_track_mem((void*)root_in.sum, root_in.bytes_sum);
+    llvm_hpvm_track_mem((void *)root_in.input, root_in.bytes_input);
+    llvm_hpvm_track_mem((void *)root_in.sum, root_in.bytes_sum);
 
     void *sumDFG = __hpvm__launch(0, SumRoot, (void *)&root_in);
     __hpvm__wait(sumDFG);
