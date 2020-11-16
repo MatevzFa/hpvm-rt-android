@@ -24,7 +24,7 @@ void sum_f(int *input, size_t bytes_input, int *sum, size_t bytes_sum) {
     void *self = __hpvm__getNode();
     long idx = __hpvm__getNodeInstanceID_x(self);
 
-    *sum = 10;
+    *sum += input[idx];
 }
 
 void sum_f_wrapper(int *input, size_t bytes_input, int *sum, size_t bytes_sum) {
@@ -69,6 +69,7 @@ int hpvm_example_sum() {
 
     root_in.bytes_sum = 1 * sizeof(int);
     root_in.sum = (int *)malloc(root_in.bytes_sum);
+    *root_in.sum = 0;
 
     for (int i = 0; i < ARRAY_SIZE; i++) {
         root_in.input[i] = i + 1;
