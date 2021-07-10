@@ -32,7 +32,7 @@ ANDROID_CFLAGS = \
 # Rules
 #
 
-default: check-env build-dir $(BUILD)/$(LIB)
+default: check-env build-dir $(BUILD)/hpvm-rt.bc
 
 $(BUILD)/hpvm-rt.bc: src/hpvm-rt.cpp
 	$(CXX) $(ANDROID_CFLAGS) $^ -c -emit-llvm -o $@ $(INCLUDES) $(DEFINES)
@@ -43,11 +43,11 @@ $(BUILD)/$(PROGRAM).ll: src/$(PROGRAM).cpp
 
 # Generate HPVM IR
 $(BUILD)/$(PROGRAM).hpvm.ll: $(BUILD)/$(PROGRAM).ll
-	$(OPT) -debug $^ -S -o $@ -load LLVMGenHPVM.so -genhpvm -hpvm-timers-gen
+	$(OPT) $^ -S -o $@ -load LLVMGenHPVM.so -genhpvm -hpvm-timers-gen
 
 # Passes
 $(BUILD)/$(PROGRAM).host.ll: $(BUILD)/$(PROGRAM).hpvm.ll
-	$(OPT) -debug $^ -S -o $@ -load LLVMBuildDFG.so -load LLVMDFG2LLVM_CPU.so -load LLVMClearDFG.so -dfg2llvm-cpu -clearDFG -hpvm-timers-cpu
+	$(OPT) $^ -S -o $@ -load LLVMBuildDFG.so -load LLVMDFG2LLVM_CPU.so -load LLVMClearDFG.so -dfg2llvm-cpu -clearDFG -hpvm-timers-cpu
 	sed -i 's/ in,\| out,\| in out,/,/g' $@
 
 # Link with HPVM RT
