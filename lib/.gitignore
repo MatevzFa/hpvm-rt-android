@@ -1,1 +1,3 @@
-libOpenCL.so
+*
+!.gitignore
+!README.md
