@@ -1,4 +1,4 @@
-BUILD = build
+BUILD = build.$(TARGET)
 PROGRAM = example-hpvm-sum
 LIB = lib$(PROGRAM).so
 
